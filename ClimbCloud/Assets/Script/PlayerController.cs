@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         int key = 0;
         float speedx = Mathf.Abs(this.rigid2D.velocity.x);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && this.rigid2D.velocity.y == 0)
         {
             this.rigid2D.AddForce(transform.up * this.jumpForce);
         }
@@ -48,4 +49,10 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.X))
           this.cat.transform.position = new Vector3(0, (float)-4.2, 0);
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("ゴール");
+        SceneManager.LoadScene("clear scene");
+    }
 }
